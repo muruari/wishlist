@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wishlist Dashboard</title>
+    <style>
+        *{
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            color: white;
+        }
+        #parralax{
+            background-image: url("/static/wish.jpg");
+            height: 1000px;
+            width: auto;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 120%;
+        }
+        #wrapper{
+            padding: 25px;
+            width: 1000px;
+            height: auto;
+        }
+        #header h4, p{
+            display: inline-block;
+            margin: 20px 90px 10px 0px;
+        }
+        #header p{
+            font-size: 16px;
+            font-weight: bolder;
+            margin-left: 240px;
+        }
+        table{
+            width: 800px;
+        }          
+
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #td, #th {
+            border: 1px solid black;
+            border-radius: 30px;
+            padding: 8px;
+        }
+
+
+        tbody #tr:hover {
+            background-color: black;
+            border-radius: 8px;
+            border-style: solid;
+        }
+
+        th, td, h4{
+            padding: 0px 15px;
+        }
+
+        #th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+        }
+        a{
+            text-decoration: none;
+        }
+
+    </style>
+
+</head>
+<body>
+    <div id = "parralax">
+        <div id = "wrapper">
+            <div id="header">
+            <a href="/dashboard">Dashboard</a> | <a href="/logout">Logout</a>
+            </div>
+            <h2>{{ wish.item_name }}</h2>
+            <br>
+            <h4>Users who added this item to their wishlist:</h4>
+            {% for user in users %}
+                <p>{{ user.name }}</p>        
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

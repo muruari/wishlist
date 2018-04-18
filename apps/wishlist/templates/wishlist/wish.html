@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Wishlist Dashboard</title>
+    <style>
+        *{
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+            color: white;
+        
+        }
+        .parralax{
+            background-image: url("static/wishes.jpg");
+            height: 1000px;
+            width: auto;
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: 120%;
+        }
+        #wrapper{
+            padding: 25px;
+            width: 1000px;
+            height: auto;
+        }
+        #header h4, p{
+            display: inline-block;
+            margin: 20px 90px 10px 0px;
+        }
+        #header p{
+            font-size: 16px;
+            font-weight: bolder;
+            margin-left: 240px;
+        }
+        table{
+            width: 800px;
+        }          
+
+        #customers {
+            font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        #td, #th {
+            border: 1px solid black;
+            border-radius: 30px;
+            padding: 8px;
+        }
+
+
+        tbody #tr:hover {
+            background-color: black;
+            border-radius: 8px;
+            border-style: solid;
+        }
+
+        th, td, h4{
+            padding: 0px 15px;
+        }
+
+        #th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            color: white;
+        }
+        a{
+            text-decoration: none;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+    <div class = "parralax">
+        <div id = "wrapper">
+            <div id="header">
+                <h4>Welcome, {{ user.name }}!</h4>
+                <p><a href="/create_wish_page">Create New Wishlist</a> | <a href="/logout">Logout</a></p>
+            </div>
+            <br>
+            <table>
+                <thead id = "th">
+                    <tr id = "tr">
+                        <th>Item</th>
+                        <th>Added by</th>
+                        <th>Date Added</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for wish in wishlist %}
+                    <tr id = "tr">
+                        <td><a href="/wish_page/{{ wish.id }}">{{ wish.item_name }}</td></a>
+                        <td>{{ wish.added_by.name }}</td>
+                        <td>{{ wish.date_added }}</td>
+                        <td><a href="/remove_wish/{{ wish.id }}">Remove from my wishlist</a></td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>    
+
+            <br>
+            <br>
+            <table>
+                <thead id = "th">
+                    <tr id = "tr">
+                        <th>Item</th>
+                        <th>Added by</th>
+                        <th>Date Added</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                {% for wish in all_wishlists %}
+                <tbody>
+                    <tr id = "tr">
+                        <td><a href="/wish_page/{{ wish.id }}">{{ wish.item_name }}</td></a>
+                        <td>{{ wish.added_by.name }}</td>
+                        <td>{{ wish.date_added }}</td>
+                        <td><a href="/add_wish/{{ wish.id }}">Add to my wishlist</a></td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>   
+        </div>
+    </div>
+</body>
+</html>

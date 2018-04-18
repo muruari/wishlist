@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Login And Registration</title>
+	<style>
+		*{
+			font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+			color: white;
+		}
+		.parralax{
+			background-image: url("static/wishes.jpg");
+			height: 1000px;
+			width: auto;
+			background-attachment: fixed;
+			background-position: center;
+			background-repeat: no-repeat;
+			background-size: 120%;
+		}
+		body{
+			background-color: rgb(0, 0, 0);
+		}
+		#wrapper{
+				padding: 1px 25px;
+				width: 1000px;
+				height: auto;
+		}
+		.errors{
+			color: red;
+			font-weight: bold;
+		}
+		.submit{
+			background-color: rgb(0, 6, 90);
+			color: white;
+		}
+		input{
+			color: black;
+		}
+	</style>
+</head>
+
+<body>
+	<div class = "parralax">
+		<div id="wrapper">
+			<h2>Register:</h2>
+			<form action="/register" method="post">
+			{% csrf_token %}
+				<label>Name:</label>
+				<br>
+				<input type="text" name="name">
+				<br>
+				<label>Username:</label>
+				<br>
+				<input type="text" name="username">
+				<br>
+				<label>Date Hired:</label>
+				<br>
+				<input type="date" name="date_hired">
+				<br>
+				<label>Password</label>
+				<br>
+				<input type="password" name="password">
+				<br>
+				<label>Confirm Password</label>
+				<br>
+				<input type="password" name="password_confirmation">
+				<br>
+				<input class = "submit" type="submit" value="Register">
+			</form>
+			{% if messages %}
+				{% for message in messages %}
+					{% if 'registration' in message.tags %}
+						<p class = "errors">{{ message }}</p>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+			
+			<h2>Login</h2>
+			<form action="/login" method="post">
+			{% csrf_token %}
+				<label>Username:</label>
+				<br>
+				<input type="text" name="username">
+				<br>
+				<label>Password:</label>
+				<br>
+				<input type="password" name="password">
+				<br>
+				<input class = "submit" type="submit" value="Login">
+			</form>
+			
+			{% if messages %}
+				{% for message in messages %}
+					{% if 'login' in message.tags %}
+						<p class = "errors">{{ message }}</p>
+					{% endif %}
+				{% endfor %}
+			{% endif %}
+		
+		</div>
+	</div>
+</body>
+</html>
