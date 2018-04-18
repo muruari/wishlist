@@ -36,7 +36,8 @@
 
     }
     .errors{
-        color: red;
+        background-color: red;
+        color: white;
         font-weight: bolder;
     }
     header{
@@ -87,6 +88,14 @@
                     <input id = "submit" type = "Submit"  value = "Create">
                     <br>
                 </form>
+                {% if messages %}
+                    {% for message in messages %}
+                        {% if 'wish' in message.tags %}
+                            <p class = "errors">{{ message }}</p>
+                        {% endif %}
+                    {% endfor %}
+    			{% endif %}
+
             </div>
             
         </div>

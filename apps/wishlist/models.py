@@ -41,6 +41,26 @@ class User(models.Model):
         return "name:{}, username:{}, password:{}, date_hired, created_at:{}, updated_at:{}".format(self.name, self.username, self.password, self.date_hired, self.created_at, self.updated_at)
 
 
+
+class WishlistManager(models.Manager):
+    def validate_wish(self, postData):
+        errors = []
+
+        if len(postData.get('item_name')) < 3:
+            is_valid = False
+            errors.append('Wish name must have at least 3 characters. Please try again.')
+
+        if len(Wishlist.objects.filter(item_name = postData.get("item_name"))) > 0:
+            is_valid = False
+            errors.append('That wish has already been made. Please try again.')
+
+        if not re.search(r'^[a-z" "A-Z]+$', postData.get('item_name')):
+            is_valid = False
+            errors.append('Name must be alphabetical characters only. Please try again.')
+
+        return errors
+
+
 class Wishlist(models.Model):
     item_name = models.CharField(max_length = 255)
     date_added = models.DateField(auto_now_add = True)
@@ -48,4 +68,4 @@ class Wishlist(models.Model):
     wished_by = models.ManyToManyField(User, related_name="my_wishlists")
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
-    # objects = WishlistManager()
+    objects = WishlistManager()

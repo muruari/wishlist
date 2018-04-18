@@ -15,7 +15,7 @@ def register(request):
 		return redirect('/')
     if len(check) > 0:
         for error in check:
-            messages.add_message(request, messages.INFO, error, extra_tags="register")
+            messages.add_message(request, messages.INFO, error, extra_tags="registration")
             return redirect('/')
 
     passwd = request.POST['password']
@@ -87,6 +87,15 @@ def wish_page(request, id):
 
 
 def create_wish(request):
+    #validates new wish item
+    check = Wishlist.objects.validate_wish(request.POST)
+    if request.method != 'POST':
+		return redirect('/create_wish_page')
+    if len(check) > 0:
+        for error in check:
+            messages.add_message(request, messages.INFO, error, extra_tags="wish")
+            return redirect('/create_wish_page')
+    
     user = User.objects.get(id = request.session["user_id"])
     
     #Creates new wishlist and adds to the database
@@ -94,6 +103,7 @@ def create_wish(request):
         item_name = request.POST['item_name'],
         added_by = user
     )
+
     return redirect('/dashboard')
 
 
